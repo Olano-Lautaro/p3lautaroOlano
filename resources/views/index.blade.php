@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,18 +10,9 @@
 <body>
     <h1>Bienvenidos</h1>
     <hr>
-    <div id='cartel' > Soy Lautaro Olano</div>
+    <div id='cartel'> Soy Lautaro Olano</div>
     <br>
-    <input type="button" value="Volver" onclick='volver()'>
-    <style>
-        .cartel{
-            width: 200;
-            height: 200;
-            color: red;
-        }
-    </style>
+    
+   
 </body>
 </html>
-<script>
-    
-</script>
