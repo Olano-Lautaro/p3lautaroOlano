@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('lastname');
             $table->string('dni')->unique();
-            $table->date('birthdate');
+            $table->datetime('birthdate');
             $table->boolean('status');
+            $table->timestamps();
         });
     }
 

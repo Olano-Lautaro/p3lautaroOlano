@@ -24,3 +24,5 @@ Route::get('lautaro', function(){
 
 Route::resource('Students', StudentController::class);
 
+
+
