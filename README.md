@@ -10,8 +10,16 @@ Bdd
 Tabla Asistencia
 Tabla Alumno
 Tabla Carrera
-Tabla Materia
+Tabla Materia 
+{
+    Nombre, Dia, Hora inicio, Hora fin, Tope.
+}
 Tabla Usuario
+
+Tabla configuración
+{
+    Hora inicio, Hora fin, Tope. ???????
+}
 Administrador  ( CRUD ) dar de alta tablas ... dar de alta asistencias y modificar asistencias figurando como manual ... 
 ( SOFT delete ) 
 
@@ -24,3 +32,5 @@ Utilizar Bootstrap
 
 validar arancel al día
 validar materias aprobadas para cursar la clase
+
+
