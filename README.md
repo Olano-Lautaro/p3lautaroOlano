@@ -7,10 +7,10 @@ Clave dni
 
 Bdd
 
-Tabla Asistencia
-Tabla Alumno
-Tabla Carrera
-Tabla Materia 
+Tabla Asistencia (assists)
+Tabla Alumno (students)
+Tabla Carrera (careers)
+Tabla Materia (Subjects)
 {
     Nombre, Dia, Hora inicio, Hora fin, Tope.
 }
