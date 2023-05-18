@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
+use App\traits\Auditable;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Student extends Model
 {
+    use Auditable; 
+    
     use HasFactory;
     protected $fillable = [
         'name',
@@ -18,12 +22,8 @@ class Student extends Model
         'status'
     ];
 
-     /**
-     * Get all of the comments for the Student
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function subject(): HasMany
+   
+    public function subject(): BelongsToMany
     {
         return $this->hasMany(Subject::class);
     } 

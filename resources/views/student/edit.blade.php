@@ -7,7 +7,7 @@
     <title>Editar Estudiante</title>
 </head>
 <body>
-    <form action="{{route('Students.update', $student[0]->id)}}" method="POST">
+    <form action="{{route('students.update', $student[0]->id)}}" method="POST">
        @csrf
        @method('PUT')
 

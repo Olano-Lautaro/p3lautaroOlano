@@ -12,9 +12,11 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        $subject= Subject::find();
-        $student= $subject->student->name;
-        return $student;
+        // $subject= Subject::find();
+        // $student= $subject->student->name;
+        // return $student;
+
+        dd('Hola');
     }
 
     /**

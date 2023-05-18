@@ -30,7 +30,7 @@
                         <td>{{$student->dni}}</td>
                         <td>{{$student->birthdate}}</td>
                         <td>{{$student->status}}</td>
-                        <td> <a href="Students/{{$student->id}}/edit"><input type="button" value="Editar"></a> </td>
+                        <td> <a href="students/{{$student->id}}/edit"><input type="button" value="Editar"></a> </td>
                     </tr>
              @endforeach 
 

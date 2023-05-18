@@ -42,3 +42,6 @@ require __DIR__.'/auth.php';
 
 // Ruta Subjects
 Route::resource('subjects', SubjectController::Class);
+
+// Ruta Students
+

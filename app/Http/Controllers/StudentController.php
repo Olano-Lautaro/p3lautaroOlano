@@ -6,17 +6,20 @@ use Illuminate\Http\Request;
 
 use App\Models\Student;
 
+use App\Traits\Auditable;
+
 class StudentController extends Controller
 {
+    // use Auditable;
     /**
      * Display a listing of the resource.
      */
-    public function index()
+        public function index()
     {
         $students= Student::all();
-        $subjects= Student::find()->subject->name;
-        dd($subjects);
-        return view('student.index',Compact('students','subjects'));
+        // $subjects= Student::find()->subject->name;
+        // dd($subjects);
+        return view('student.index',Compact('students'));
         
     }
 
@@ -59,7 +62,6 @@ class StudentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
         
 
         $student = Student::find($id);
@@ -71,8 +73,8 @@ class StudentController extends Controller
         $student->status=$request->status;
 
         $student->save();
-
-        return redirect()->Route('Students.index');
+        $student->saveAudit('M','modificación');
+        return redirect()->Route('students.index');
     }
 
     /**

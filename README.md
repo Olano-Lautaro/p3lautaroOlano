@@ -12,11 +12,11 @@ Tabla Alumno (students)
 Tabla Carrera (careers)
 Tabla Materia (Subjects)
 {
-    Nombre, Dia, Hora inicio, Hora fin, Tope.
+    id, Nombre
 }
 Tabla Usuario
 
-Tabla configuración
+Tabla configuraciónMaterias 
 {
     Hora inicio, Hora fin, Tope. ???????
 }
