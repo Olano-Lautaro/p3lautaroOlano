@@ -3,6 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\UserController;
+
+use App\Models\Student;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,11 +20,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Welcome
 Route::get('/', function () {
     return view('welcome');
 });
 
+// Pàgina login
 Route::get('/dashboard', function () {
+    $student = Student::all();
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -26,6 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('students', StudentController::Class);
 });
 
 require __DIR__.'/auth.php';
+
+// Ruta Subjects
+Route::resource('subjects', SubjectController::Class);
