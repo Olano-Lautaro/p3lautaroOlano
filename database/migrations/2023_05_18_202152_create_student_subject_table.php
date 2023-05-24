@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('studentsubjects', function (Blueprint $table) {
+        Schema::create('student_subject', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('Student_id');
-            $table->unsignedBigInteger('Subject_id');
-            // $table->primary(['Student_id','Subject_id']);
+            $table->unsignedBigInteger('student_id');
+            $table->unsignedBigInteger('subject_id');
+            // $table->primary(['student_id','subject_id']);
             $table->timestamps();
         });
     }

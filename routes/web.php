@@ -25,9 +25,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Pàgina login
+// Pàgina
 Route::get('/dashboard', function () {
-    $student = Student::all();
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 

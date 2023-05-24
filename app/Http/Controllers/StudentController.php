@@ -17,8 +17,12 @@ class StudentController extends Controller
         public function index()
     {
         $students= Student::all();
-        // $subjects= Student::find()->subject->name;
-        // dd($subjects);
+
+        // Relaciona que materias realiza un estudiante
+        $student= Student::find(1);
+        $subject= $student->subject()->attach([1,2,3]);
+
+        
         return view('student.index',Compact('students'));
         
     }
@@ -82,6 +86,8 @@ class StudentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // $student= Student::find($id);
+
+
     }
 }
