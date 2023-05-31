@@ -16,7 +16,7 @@ class SubjectController extends Controller
         // $student= $subject->student->name;
         // return $student;
 
-        dd('Hola');
+        dd('Materias');
     }
 
     /**

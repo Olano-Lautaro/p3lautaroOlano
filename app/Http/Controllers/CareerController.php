@@ -12,7 +12,7 @@ class CareerController extends Controller
      */
     public function index()
     {
-        //
+        dd('Carreras');
     }
 
     /**

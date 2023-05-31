@@ -12,7 +12,7 @@ class AssistController extends Controller
      */
     public function index()
     {
-        //
+        dd('Asistencias');
     }
 
     /**

@@ -15,6 +15,18 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('students.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Alumnos') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('subjects.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Materias') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('careers.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Carreras') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('assists.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Asistencias') }}
+                    </x-nav-link>
                 </div>
             </div>
 
