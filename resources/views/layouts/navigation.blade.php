@@ -28,6 +28,9 @@
                         {{ __('Asistencias') }}
                     </x-nav-link>
                 </div>
+
+
+
             </div>
 
             <!-- Settings Dropdown -->

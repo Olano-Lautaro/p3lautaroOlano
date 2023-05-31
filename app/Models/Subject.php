@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Subject extends Model
 {
@@ -14,8 +14,8 @@ class Subject extends Model
         'name',
     ];
 
-    public function student(): BelongsTo
+    public function student(): BelongsToMany
     {
-        return $this->belongsTo(Student::Class);
+        return $this->belongsToMany(Student::Class);
     }
 }
