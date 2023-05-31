@@ -51,3 +51,9 @@ Route::get('assists', [AssistController::Class, 'index'])->name('assists.index')
 
 // Ruta Career (Carreras)
 Route::get('careers', [CareerController::Class, 'index'])->name('careers.index');
+
+Route::resource('students', StudentController::Class); //CRUD Student
+Route::resource('subjects', SubjectController::Class); //CRUD Subject
+Route::resource('assists', AssistController::Class); //CRUD Assist
+Route::resource('careers', CareerController::Class); //CRUD Career
+

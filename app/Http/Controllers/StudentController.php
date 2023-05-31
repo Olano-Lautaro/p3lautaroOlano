@@ -11,6 +11,7 @@ use App\Traits\Auditable;
 class StudentController extends Controller
 {
     // use Auditable;
+
     /**
      * Display a listing of the resource.
      */
@@ -19,8 +20,8 @@ class StudentController extends Controller
         $students= Student::all();
 
         // Relaciona que materias realiza un estudiante
-        $student= Student::find(1);
-        $subject= $student->subject()->attach([1,2,3]);
+        // $student= Student::find(1);
+        // $subject= $student->subject()->attach([1,2,3]);
 
         
         return view('student.index',Compact('students'));
@@ -32,7 +33,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return view('students.create');
     }
 
     /**
@@ -40,7 +41,7 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Guardar recurso Creado
     }
 
     /**
@@ -86,8 +87,9 @@ class StudentController extends Controller
      */
     public function destroy(string $id)
     {
-        // $student= Student::find($id);
-
-
+        $student= Student::find($id);
+        $student->delete();
+        $student->saveAudit('B', 'Baja');
+        return redirect()->Route('students.index');
     }
 }

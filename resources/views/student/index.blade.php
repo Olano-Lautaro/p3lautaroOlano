@@ -16,7 +16,13 @@
                 <th>DNI</th>
                 <th>Fecha Nacimiento</th>
                 <th>Estado</th>
-                <th>Acciones</th>
+                <th colspan="2">Acciones</th>
+                <th>
+                    <form action={{route('students.create')}} method="post">
+                        @csrf
+                        <input type="submit" value="Añadir Alumno">
+                    </form>
+                </th>
             </tr>
         </thead>
         
@@ -31,7 +37,14 @@
                         <td>{{$student->birthdate}}</td>
                         <td>{{$student->status}}</td>
                         <td> <a href="students/{{$student->id}}/edit"><input type="button" value="Editar"></a> </td>
+                        
+                        <form action={{route('students.destroy', $student->id)}} method="post">
+                            @csrf
+                            @method('delete')
+                            <th><input type="submit" value="Eliminar"></th>
+                        </form>
                     </tr>
+                    
              @endforeach 
 
         </tbody>
