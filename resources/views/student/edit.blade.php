@@ -14,7 +14,7 @@
         Nombre: <input type="text" name='name' value='{{$student[0]->name}}'><br>
         Apellido: <input type="text" name='lastname' value='{{$student[0]->lastname}}'><br>
         DNI: <input type="text" name='dni' value='{{$student[0]->dni}}'><br>
-        Fecha de Nacimiento: <input type="datetime" name='birthdate' value='{{$student[0]->birthdate}}'><br>
+        Fecha de Nacimiento: <input type="datetime" name='birthday' value='{{$student[0]->birthday}}'><br>
         Estado: <input type="number" name='status' value='{{$student[0]->status}}'><br>
 
         <input type="submit" value="Guardar">

@@ -21,7 +21,7 @@ class StudentFactory extends Factory
             'name'=> fake()->firstname(),
             'lastname'=> fake()->lastname(),
             'dni'=> fake()->dni(),
-            'birthdate'=> fake()->datetime('Y-m-d'),
+            'birthday'=> fake()->datetime('Y-m-d'),
             'status'=>fake()->numberBetween(1,2)
         ];
     }

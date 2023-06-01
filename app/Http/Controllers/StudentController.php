@@ -33,7 +33,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('students.create');
+        return view('student.create');
     }
 
     /**
@@ -41,7 +41,25 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        // Guardar recurso Creado
+        $request->validate([
+            'name'=>'required',
+            'lastname'=>'required',
+            'dni'=>'required',
+            'birthday'=>'required',
+            'status'=>'required'
+        ]);
+
+        $student= Student::create([
+            "name"=>$request->name,
+            "lastname"=>$request->lastname,
+            "dni"=>$request->dni,
+            "birthday"=>$request->birthday,
+            "status"=>$request->status
+        ]);
+
+        $student->saveAudit('A', 'Alta');
+
+        return redirect()->route('students.index');
     }
 
     /**
@@ -74,7 +92,7 @@ class StudentController extends Controller
         $student->name=$request->name;
         $student->lastname=$request->lastname;
         $student->dni=$request->dni;
-        $student->birthdate=$request->birthdate;
+        $student->birthday=$request->birthday;
         $student->status=$request->status;
 
         $student->save();

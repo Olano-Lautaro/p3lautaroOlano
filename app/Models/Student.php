@@ -18,7 +18,7 @@ class Student extends Model
         'name',
         'lastname',
         'dni',
-        'birthdate',
+        'birthday',
         'status'
     ];
 
