@@ -12,5 +12,6 @@ class Audit extends Model
         'action',
         'log',
         'user_id',
+        'description'
     ];
 }

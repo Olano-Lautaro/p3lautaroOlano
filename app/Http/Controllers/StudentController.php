@@ -57,7 +57,7 @@ class StudentController extends Controller
             "status"=>$request->status
         ]);
 
-        $student->saveAudit('A', 'Alta');
+        $student->saveAudit('A', 'Alta', 'Alumno');
 
         return redirect()->route('students.index');
     }
@@ -96,7 +96,7 @@ class StudentController extends Controller
         $student->status=$request->status;
 
         $student->save();
-        $student->saveAudit('M','modificación');
+        $student->saveAudit('M','modificación', 'Alumno');
         return redirect()->Route('students.index');
     }
 
@@ -107,7 +107,7 @@ class StudentController extends Controller
     {
         $student= Student::find($id);
         $student->delete();
-        $student->saveAudit('B', 'Baja');
+        $student->saveAudit('B', 'Baja', 'Alumno');
         return redirect()->Route('students.index');
     }
 }

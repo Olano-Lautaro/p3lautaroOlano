@@ -12,11 +12,13 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        // $subject= Subject::find();
+        $subjects= Subject::all();
+
+
         // $student= $subject->student->name;
         // return $student;
 
-        dd('Materias');
+        return view('subject.index', compact('subjects'));
     }
 
     /**
@@ -24,7 +26,7 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('subjects.create');
     }
 
     /**
@@ -32,7 +34,15 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required'
+        ]);
+
+        $subject= Subject::create([
+            "name"=>$request->name
+        ]);
+
+        return redirect()->route('subbjects.index');
     }
 
     /**
@@ -46,24 +56,35 @@ class SubjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Subject $subject)
+    public function edit(string $id)
     {
-        //
+        $subject= Subject::where('id', $id)->get();
+
+        return view('subject.edit', compact('subject'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Subject $subject)
+    public function update(Request $request, string $id)
     {
-        //
+        $subject= Subject::find($id);
+
+        $subject->name=$request->name;
+
+        $subject->save();
+
+        return redirect()->route('subjects.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Subject $subject)
+    public function destroy(string $id)
     {
-        //
+        $subject= Subject::find($id);
+        $subject->delete();
+
+        return redirect()->route('subjects.index');
     }
 }

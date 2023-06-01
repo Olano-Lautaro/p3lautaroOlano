@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('assists', function (Blueprint $table) {
+        Schema::create('career_subject', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('student_id'); // Id Alumno
+            $table->unsignedBigInteger('career_id'); // Id Carrera
             $table->unsignedBigInteger('subject_id'); // Id Materia
-            $table->unsignedBigInteger('day_id');   // Id Día 
-            $table->timestamps('hour');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('assists');
+        Schema::dropIfExists('career_subject');
     }
 };
