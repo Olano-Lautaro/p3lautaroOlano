@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('student_id'); // Id Alumno
             $table->unsignedBigInteger('subject_id'); // Id Materia
             $table->unsignedBigInteger('day_id');   // Id Día 
-            $table->timestamps('hour');
+            $table->time('hour')->format('H:i:s');
         });
     }
 

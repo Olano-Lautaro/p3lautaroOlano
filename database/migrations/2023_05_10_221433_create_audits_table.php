@@ -16,6 +16,7 @@ return new class extends Migration
             $table->char('action', 1);
             $table->string('log');
             $table->string('user_id');
+            $table->string('description');
             $table->timestamps();
         });
     }
