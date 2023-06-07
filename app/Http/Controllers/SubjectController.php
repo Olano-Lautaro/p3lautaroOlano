@@ -26,7 +26,7 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        return view('subjects.create');
+        return view('subject.create');
     }
 
     /**
@@ -42,7 +42,7 @@ class SubjectController extends Controller
             "name"=>$request->name
         ]);
 
-        return redirect()->route('subbjects.index');
+        return redirect()->route('subjects.index');
     }
 
     /**
