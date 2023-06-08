@@ -9,6 +9,7 @@
 <body>
     <form action={{route("subjects.store")}} method="post">
         @csrf 
+        <b>Datos de Materia</b> <br>
 
         Nombre: <input type="text" name='name' placeholder="Nombre de Materia"><br>
 
@@ -25,7 +26,7 @@
         Hora de Fin: <input type="time" name="finish"><br>
         Rango: <input type="time" name="stop">
         *el <b>Rango</b> es el tiempo de tope para marcar una asistencia
-         <br>
+        <br>
        
         <input type="submit" value="Guardar">
     </form>

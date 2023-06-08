@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Subject;
 use App\Models\Config;
+use App\Models\Day;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
@@ -44,27 +45,22 @@ class SubjectController extends Controller
             "name"=>$request->name
         ]);
 
-       
-
-        
-
         $request->validate([
             "day"=>'required',
             "start"=>'required',
             "finish"=>'required',
             "stop"=>'required'
         ]);
-        $subjectConfig= Config::create([
+
+        $subjectConfig= [ Config::create([
             'subject_id'=>$subject->id,
-            'day'=>$request->day,
+            'day_id'=>$request->day,
             'start'=>$request->start,
             'finish'=>$request->finish,
             'stop'=>$request->stop
-        ]);
+        ]) ];
 
-        dd($subjectConfig);
-
-
+            dd($subjectConfig);
         return redirect()->route('subjects.index');
     }
 
@@ -82,8 +78,11 @@ class SubjectController extends Controller
     public function edit(string $id)
     {
         $subject= Subject::where('id', $id)->get();
-
-        return view('subject.edit', compact('subject'));
+        $config= Config::where('subject_id', $id)->get();
+        
+        $day= Day::where('id', $config[0]->day_id)->get(); 
+        
+        return view('subject.edit', compact('subject', 'config', 'day'));
     }
 
     /**
@@ -91,11 +90,18 @@ class SubjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // Edit Materias   
         $subject= Subject::find($id);
-
         $subject->name=$request->name;
-
         $subject->save();
+
+        // Edit Config Materias
+        $config= Config::where('subject_id', $id)->get();
+        $config->day_id=$request->day;
+        $config->start=$request->start;
+        $config->finish=$request->finish;
+        $config->stop=$request->stop;
+        $config->save();
 
         return redirect()->route('subjects.index');
     }
@@ -105,9 +111,23 @@ class SubjectController extends Controller
      */
     public function destroy(string $id)
     {
+
+        $config= Config::where('subject_id', $id)->get();
+        // $config->delete();
+
         $subject= Subject::find($id);
         $subject->delete();
 
+        
+
+    
         return redirect()->route('subjects.index');
+    }
+
+    public function infoConfig($id)
+    {
+        $config= Config::where($id = 'subject_id');
+
+        dd($config);
     }
 }

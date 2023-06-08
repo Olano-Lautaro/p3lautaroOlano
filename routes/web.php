@@ -42,6 +42,7 @@ require __DIR__.'/auth.php';
 
 // Ruta Subjects (Materias)
 Route::get('subjects', [SubjectController::Class, 'index'])->name('subjects.index');
+Route::get('subjects',[SubjectController::Class, 'infoConfig'])->name('subjects.infoConfig');
 
 // Ruta Students (Estudiantes)
 Route::get('students', [StudentController::Class, 'index'])->name('students.index');
