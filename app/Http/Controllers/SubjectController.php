@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subject;
+use App\Models\Config;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
@@ -34,6 +35,7 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
             'name'=>'required'
         ]);
@@ -41,6 +43,27 @@ class SubjectController extends Controller
         $subject= Subject::create([
             "name"=>$request->name
         ]);
+
+       
+
+        
+
+        $request->validate([
+            "day"=>'required',
+            "start"=>'required',
+            "finish"=>'required',
+            "stop"=>'required'
+        ]);
+        $subjectConfig= Config::create([
+            'subject_id'=>$subject->id,
+            'day'=>$request->day,
+            'start'=>$request->start,
+            'finish'=>$request->finish,
+            'stop'=>$request->stop
+        ]);
+
+        dd($subjectConfig);
+
 
         return redirect()->route('subjects.index');
     }

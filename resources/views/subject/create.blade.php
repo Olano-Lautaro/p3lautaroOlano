@@ -14,7 +14,6 @@
 
         <hr>
        <b>Configuración</b> <br>
-        {{-- <input type="text" name="subject_id" value="{{$subject[0]->id}}"hidden > --}}
         Día: <select name="day" >
             <option value="2">Lunes</option><br>
             <option value="3">Martes</option><br>
