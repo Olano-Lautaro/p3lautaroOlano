@@ -36,6 +36,8 @@
                         @method('delete')
                         <th><button>🗑️</button></th>
                     </form>
+
+                    {{-- <td><a href={{ route('subject.createConfig', $subject->id)}}><button>Añadir Config</button></a></td> --}}
             
                 </tr>
             @endforeach

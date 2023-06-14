@@ -12,7 +12,10 @@ class CareerController extends Controller
      */
     public function index()
     {
-        dd('Carreras');
+        $careers= Career::all();
+
+
+        return view('career.index', compact('careers'));
     }
 
     /**
@@ -20,7 +23,7 @@ class CareerController extends Controller
      */
     public function create()
     {
-        //
+        return view('career.store');
     }
 
     /**
@@ -28,7 +31,13 @@ class CareerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request=validate([
+            'name'=>'required'
+        ]);
+
+        $career= Career::create([
+            'name'=> $request->name
+        ]);
     }
 
     /**
@@ -42,24 +51,35 @@ class CareerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Career $career)
+    public function edit(string $id)
     {
-        //
+        $career= Career::where($id, 'id')->get();
+
+        return view('career.edit', compact('career'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Career $career)
+    public function update(Request $request, string $id)
     {
-        //
+        $career= Career::find($id);
+        $career->name=$request->name;
+        $career->duration=$request->duration;
+
+        $career->save();
+
+        return redirect()->route('careers.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Career $career)
+    public function destroy(string $id)
     {
-        //
+        $career= Career::find($id);
+        $career->delete();
+
+        return redirect()->route('careers.index');
     }
 }

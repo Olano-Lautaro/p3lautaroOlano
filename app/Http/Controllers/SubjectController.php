@@ -52,6 +52,7 @@ class SubjectController extends Controller
             "stop"=>'required'
         ]);
 
+
         $subjectConfig= [ Config::create([
             'subject_id'=>$subject->id,
             'day_id'=>$request->day,
@@ -60,7 +61,7 @@ class SubjectController extends Controller
             'stop'=>$request->stop
         ]) ];
 
-            dd($subjectConfig);
+          
         return redirect()->route('subjects.index');
     }
 

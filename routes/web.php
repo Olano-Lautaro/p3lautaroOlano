@@ -58,3 +58,4 @@ Route::resource('subjects', SubjectController::Class); //CRUD Subject
 Route::resource('assists', AssistController::Class); //CRUD Assist
 Route::resource('careers', CareerController::Class); //CRUD Career
 
+

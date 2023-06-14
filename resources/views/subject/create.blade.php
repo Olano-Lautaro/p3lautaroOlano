@@ -27,7 +27,7 @@
         Rango: <input type="time" name="stop">
         *el <b>Rango</b> es el tiempo de tope para marcar una asistencia
         <br>
-       
+        
         <input type="submit" value="Guardar">
     </form>
 </body>
