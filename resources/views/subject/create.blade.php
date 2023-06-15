@@ -9,6 +9,14 @@
 <body>
     <form action={{route("subjects.store")}} method="post">
         @csrf 
+        Carrera:
+        <select name="career">
+            @foreach ($careers as $career)
+                <option value="{{$career->id}}">{{$career->name}}</option>
+            @endforeach 
+        </select>
+        <br>
+        <br>
         <b>Datos de Materia</b> <br>
 
         Nombre: <input type="text" name='name' placeholder="Nombre de Materia"><br>

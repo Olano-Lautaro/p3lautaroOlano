@@ -7,6 +7,11 @@
     <title>Crear Carrera</title>
 </head>
 <body>
-    Crear Carrera
+    <form action={{route("careers.store")}} method="post">
+        @csrf 
+        <b>Datos de la Carrera</b> <br>
+        Nombre: <input type="text" name='name' placeholder="Carrera"><br>
+        <input type="submit" value="Guardar">
+    </form>
 </body>
 </html>

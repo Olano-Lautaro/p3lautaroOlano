@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Career;
 use App\Models\Subject;
 use App\Models\Config;
 use App\Models\Day;
@@ -28,7 +28,9 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        return view('subject.create');
+        $careers= Career::all();
+        
+        return view('subject.create', compact('careers'));
     }
 
     /**
@@ -36,7 +38,7 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'name'=>'required'
         ]);
@@ -45,13 +47,13 @@ class SubjectController extends Controller
             "name"=>$request->name
         ]);
 
+        
         $request->validate([
             "day"=>'required',
             "start"=>'required',
             "finish"=>'required',
             "stop"=>'required'
         ]);
-
 
         $subjectConfig= [ Config::create([
             'subject_id'=>$subject->id,
@@ -60,6 +62,13 @@ class SubjectController extends Controller
             'finish'=>$request->finish,
             'stop'=>$request->stop
         ]) ];
+
+        
+        $career= Career::find($request->career);
+
+        $id=$subject->id;
+       
+        $subjects= $career->subject()->attach($id);
 
           
         return redirect()->route('subjects.index');
@@ -118,9 +127,6 @@ class SubjectController extends Controller
 
         $subject= Subject::find($id);
         $subject->delete();
-
-        
-
     
         return redirect()->route('subjects.index');
     }

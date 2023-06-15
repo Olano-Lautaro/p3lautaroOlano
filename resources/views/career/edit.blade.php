@@ -7,6 +7,12 @@
     <title>Editar Carrera</title>
 </head>
 <body>
-    Editar Carrera
+    <form action="{{ route('careers.update', $career[0]->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+
+        Nombre: <input type="text" name='name' value='{{ $career[0]->name }}'><br>
+
+        <input type="submit" value="Guardar">
 </body>
 </html>

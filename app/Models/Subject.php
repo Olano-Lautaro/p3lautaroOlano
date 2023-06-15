@@ -21,9 +21,9 @@ class Subject extends Model
         return $this->belongsToMany(Student::Class);
     }
 
-    public function career(): BelongsTo  
+    public function career(): BelongsToMany  
     {
-        return $this->belongsTo(Career::Class);
+        return $this->belongsToMany(Career::Class);
     }
 
     public function config(): HasMany 

@@ -23,7 +23,7 @@ class CareerController extends Controller
      */
     public function create()
     {
-        return view('career.store');
+        return view('career.create');
     }
 
     /**
@@ -31,13 +31,15 @@ class CareerController extends Controller
      */
     public function store(Request $request)
     {
-        $request=validate([
+        $request->validate([
             'name'=>'required'
         ]);
 
         $career= Career::create([
             'name'=> $request->name
         ]);
+
+        return redirect()->route('careers.index');
     }
 
     /**
@@ -53,7 +55,7 @@ class CareerController extends Controller
      */
     public function edit(string $id)
     {
-        $career= Career::where($id, 'id')->get();
+        $career=Career::where($id, 'id')->get();
 
         return view('career.edit', compact('career'));
     }
@@ -65,7 +67,6 @@ class CareerController extends Controller
     {
         $career= Career::find($id);
         $career->name=$request->name;
-        $career->duration=$request->duration;
 
         $career->save();
 
