@@ -7,18 +7,17 @@ use App\Models\Config;
 use App\Models\Day;
 use Illuminate\Http\Request;
 
+use App\Traits\SubjectConfig;
+
 class SubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         $subjects= Subject::all();
-
-
-        // $student= $subject->student->name;
-        // return $student;
 
         return view('subject.index', compact('subjects'));
     }
@@ -43,11 +42,6 @@ class SubjectController extends Controller
             'name'=>'required'
         ]);
 
-        $subject= Subject::create([
-            "name"=>$request->name
-        ]);
-
-        
         $request->validate([
             "day"=>'required',
             "start"=>'required',
@@ -55,22 +49,29 @@ class SubjectController extends Controller
             "stop"=>'required'
         ]);
 
-        $subjectConfig= [ Config::create([
-            'subject_id'=>$subject->id,
-            'day_id'=>$request->day,
-            'start'=>$request->start,
-            'finish'=>$request->finish,
-            'stop'=>$request->stop
-        ]) ];
 
-        
-        $career= Career::find($request->career);
+        $subject= Subject::create([
+            "name"=>$request->name
+        ]);
 
         $id=$subject->id;
-       
-        $subjects= $career->subject()->attach($id);
+        $data= $request;
 
-          
+        $subject->addConfig($id,$data);
+
+        // $subjectConfigs= [ Config::create([
+        //     'subject_id'=>$subject->id,
+        //     'day_id'=>$request->day,
+        //     'start'=>$request->start,
+        //     'finish'=>$request->finish,
+        //     'stop'=>$request->stop
+        // ]) ];
+
+
+        $career= Career::find($request->career);//Busca a que carrera va apertenecer la materia.
+        
+        $subjects= $career->subject()->attach($id);//relaciona una materia con una carrera. 
+ 
         return redirect()->route('subjects.index');
     }
 

@@ -7,6 +7,7 @@
     <title>Carreras</title>
 </head>
 <body>
+    <a href="/dashboard"><button>Dasboard</button></a>   
     <table border="1">
         <thead>
             <tr>

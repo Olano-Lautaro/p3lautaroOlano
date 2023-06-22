@@ -24,4 +24,5 @@ class Day extends Model
     {
         return $this->hasMany(Assist::Class);
     }
+    
 }
