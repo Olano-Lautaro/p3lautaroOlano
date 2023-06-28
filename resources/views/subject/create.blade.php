@@ -23,24 +23,58 @@
 
         <hr>
        <b>Configuración</b> <br>
-        Día: <select name="day" required>
-            <option value="2">Lunes</option><br>
-            <option value="3">Martes</option><br>
-            <option value="4">Miércoles</option><br>
-            <option value="5">Jueves</option><br>
-            <option value="6">Viernes</option><br>
-        </select><br>
-        Hora de inicio: <input type="time" name="start" min="15:00:00" ><br>
-        Hora de Fin: <input type="time" name="finish" min="15:00:00" required><br>
-        Rango: <input type="time" name="stop" required>
-        *el <b>Rango</b> es el tiempo de tope para marcar una asistencia
-        <input type="button" value="Agregar config" >
+        Días:
+        <div name="days" class="days-box">
+            
+                <div class="day-box" name="day-2">
+                    Lunes <input type="checkbox" name="2" id="2"><br>
+                    Hora de inicio: <input type="time" name="start" min="15:55:00"><br>
+                    Hora de Fin: <input type="time" name="finish" max="22:15:00"><br>
+                    Rango: <input type="time" name="stop">  
+                </div>
+                <div class="day-box" name="day-3">
+                    Martes<input type="checkbox" name="3" id="3"><br>
+                    Hora de inicio: <input type="time" name="start" min="15:55:00"><br>
+                    Hora de Fin: <input type="time" name="finish" min="22:15:00"><br>
+                    Rango: <input type="time" name="stop">
+                    
+                </div>
+                <div class="day-box" name="day-4">
+                    Miercoles<input type="checkbox" name="4" id="4"><br>
+                    Hora de inicio: <input type="time" name="start" min="15:55:00"><br>
+                    Hora de Fin: <input type="time" name="finish" max="22:15:00"><br>
+                    Rango: <input type="time" name="stop">                   
+                </div>
+                <div class="day-box" name="day-5">
+                    Jueves<input type="checkbox" name="5" id="5"><br>
+                    Hora de inicio: <input type="time" name="start" min="15:55:00"><br>
+                    Hora de Fin: <input type="time" name="finish" min="22:15:00"><br>
+                    Rango: <input type="time" name="stop">               
+                </div>
+                <div class="day-box" name="day-6">
+                    Viernes<input type="checkbox" name="6" id="6"><br>
+                    Hora de inicio: <input type="time" name="start" min="15:55:00"><br>
+                    Hora de Fin: <input type="time" name="finish" min="22:15:00"><br>
+                    Rango: <input type="time" name="stop">
+                </div>
+    
+        </div>
         <br>
-        {{-- @foreach ($subjectsConfigs as $subjectconfig)
-        
-        @endforeach --}}
-        
         <input type="submit" value="Guardar">
     </form>
 </body>
 </html>
+<style>
+    .days-box{
+        display: flex;
+        /* flex-direction: row; */
+        flex-flow: row wrap;
+        flex: 1;
+        justify-content: space-around;
+    }
+    .day-box{
+        border-style: solid;
+        border-color: gray;
+        border-width: 1px;
+    }
+</style>

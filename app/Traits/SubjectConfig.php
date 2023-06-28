@@ -10,16 +10,14 @@ trait subjectConfig
         
         $subjectConfigs=[];
 
-        array_push($subjectConfigs[
-            {Config::create([
-                    'subject_id'=>$subject_id,
-                    'day_id'=>$request->day,
-                    'start'=>$request->start,
-                    'finish'=>$request->finish,
-                    'stop'=>$request->stop
-                ])
-                save();
-            }
+        array_push($subjectConfigs[{
+            Config::create([
+                'subject_id'=>$subject_id,
+                'day_id'=>$request->day,
+                'start'=>$request->start,
+                'finish'=>$request->finish,
+                'stop'=>$request->stop
+            ])}
         ]);
     }
 }

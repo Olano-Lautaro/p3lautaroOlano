@@ -7,7 +7,6 @@ use App\Models\Config;
 use App\Models\Day;
 use Illuminate\Http\Request;
 
-use App\Traits\SubjectConfig;
 
 class SubjectController extends Controller
 {
@@ -38,6 +37,7 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
 
+        dd($request);
         $request->validate([
             'name'=>'required'
         ]);
@@ -57,15 +57,8 @@ class SubjectController extends Controller
         $id=$subject->id;
         $data= $request;
 
-        $subject->addConfig($id,$data);
+        
 
-        // $subjectConfigs= [ Config::create([
-        //     'subject_id'=>$subject->id,
-        //     'day_id'=>$request->day,
-        //     'start'=>$request->start,
-        //     'finish'=>$request->finish,
-        //     'stop'=>$request->stop
-        // ]) ];
 
 
         $career= Career::find($request->career);//Busca a que carrera va apertenecer la materia.
