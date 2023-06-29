@@ -17,6 +17,7 @@ class SubjectController extends Controller
     public function index()
     {
         $subjects= Subject::all();
+        
 
         return view('subject.index', compact('subjects'));
     }
@@ -37,25 +38,36 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
 
-        dd($request);
         $request->validate([
             'name'=>'required'
         ]);
-
-        $request->validate([
-            "day"=>'required',
-            "start"=>'required',
-            "finish"=>'required',
-            "stop"=>'required'
-        ]);
-
 
         $subject= Subject::create([
             "name"=>$request->name
         ]);
 
         $id=$subject->id;
-        $data= $request;
+
+        $configs=[];
+
+        for ($i=2; $i<7; $i++){
+            $checkbox= 'check'.$i;
+            $finish= 'finish-'.$i;
+            $stop='stop-'.$i;
+            $start='start-'.$i;
+        
+            if ($request->$checkbox == true){
+                $config=[Config::create([
+                    "subject_id"=>$id,
+                    "day_id"=>$i,
+                    "start"=>$request->$start,
+                    "finish"=>$request->$finish,
+                    "stop"=>$request->$stop
+                ])];
+            }
+        }
+        $configs= Config::where('subject_id',$id)->get();
+
 
         
 
@@ -82,11 +94,14 @@ class SubjectController extends Controller
     public function edit(string $id)
     {
         $subject= Subject::where('id', $id)->get();
-        $config= Config::where('subject_id', $id)->get();
-        
-        $day= Day::where('id', $config[0]->day_id)->get(); 
-        
-        return view('subject.edit', compact('subject', 'config', 'day'));
+        $configs= Config::where('subject_id', $id)->get();
+        $count = count($configs);
+
+        for ($i=0; $i < $count; $i++) { 
+            $days=[ Day::where('id', $configs[$i]->day_id)->get()];
+        };
+        dd($days);
+        return view('subject.edit', compact('subject', 'configs', 'day'));
     }
 
     /**

@@ -18,9 +18,9 @@
 
         <hr>
         <b>Configuración</b><br>
-
-        Día establecido : {{ $day[0]->day}} <br>
-        *Cambiar dia*<select name="day">
+        @foreach ( $configs as $config)
+            Día establecido : {{ $day[0]->day}} <br>
+            *Cambiar dia*<select name="day">
             <option value="2">Lunes</option><br>
             <option value="3">Martes</option><br>
             <option value="4">Miércoles</option><br>
@@ -32,6 +32,8 @@
         Rango: <input type="time" name="stop" value={{ $config[0]->stop}}>
         *el <b>Rango</b> es el tiempo de tope para marcar una asistencia
         <br>
+        @endforeach
+        
 
 
         <input type="submit" value="Guardar">
