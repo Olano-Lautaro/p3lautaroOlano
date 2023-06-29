@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Crear Materia</title>
-    <script src={{ asset('js/checkbox.js') }}></script>
+    
 </head>
 <body>
     <form action={{route("subjects.store")}} method="post">

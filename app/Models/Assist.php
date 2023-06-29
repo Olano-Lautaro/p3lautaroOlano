@@ -16,7 +16,7 @@ class Assist extends Model
         'subject_id',
         'day_id',
         'hour'
-    ]
+    ];
 
     public function day(): BelongsTo 
     {

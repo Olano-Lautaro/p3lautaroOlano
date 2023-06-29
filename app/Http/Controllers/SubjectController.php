@@ -66,7 +66,9 @@ class SubjectController extends Controller
                 ])];
             }
         }
-        $configs= Config::where('subject_id',$id)->get();
+
+
+        // $configs= Config::where('subject_id',$id)->get();
 
 
         
@@ -93,15 +95,24 @@ class SubjectController extends Controller
      */
     public function edit(string $id)
     {
-        $subject= Subject::where('id', $id)->get();
-        $configs= Config::where('subject_id', $id)->get();
-        $count = count($configs);
+        $subject= Subject::find( $id);
+        $configs= $subject->config;
+       
+        // $days=[];
+        // foreach ($configs as $value) {
+        //     $days[]=$value->day_id;
+        // }
+        
+       // $dias= Day::select("*")->wherein('id', $days)->get();
 
-        for ($i=0; $i < $count; $i++) { 
-            $days=[ Day::where('id', $configs[$i]->day_id)->get()];
-        };
-        dd($days);
-        return view('subject.edit', compact('subject', 'configs', 'day'));
+       
+
+        // for ($i=0; $i <= $count; $i++) { 
+        //     $day= Day::where('id', $configs[$i]->day_id)->get();
+        //     array_push($days, $day);
+        // };
+
+        return view('subject.edit', compact('subject', 'configs'));
     }
 
     /**
@@ -109,18 +120,41 @@ class SubjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        
         // Edit Materias   
         $subject= Subject::find($id);
         $subject->name=$request->name;
         $subject->save();
 
         // Edit Config Materias
-        $config= Config::where('subject_id', $id)->get();
-        $config->day_id=$request->day;
-        $config->start=$request->start;
-        $config->finish=$request->finish;
-        $config->stop=$request->stop;
-        $config->save();
+        $configs= $subject->config;
+        // dd($configs);
+        
+        foreach ($configs as $key=> $config) {
+
+            $finish= 'finish-'.$key;
+            $stop='stop-'.$key;
+            $start='start-'.$key;
+            $day='day-'.$key;
+            
+            $config->day_id=$request->$day;
+            $config->start=$request->$start;
+            $config->finish=$request->$finish;
+            $config->stop=$request->$stop;
+
+            $config->save();
+        }
+        if ($request->new_config != false){
+            $newConfig= Config::create([
+                "subject_id"=>$id,
+                "day_id"=>$request->day_new,
+                "start"=>$request->start_new,
+                "finish"=>$request->finish_new,
+                "stop"=>$request->stop_new
+            ]);
+
+        };
+       
 
         return redirect()->route('subjects.index');
     }
