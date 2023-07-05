@@ -51,30 +51,36 @@ class SubjectController extends Controller
             $stop='stop-'.$i;
             $start='start-'.$i;
 
-            $configs=Config::where('day_id', $i)->get();
-            dd($configs);
-            // if (materia_actual['hora_inicio'] >= materia['hora_inicio'] and
-            //     materia_actual['hora_inicio'] < materia['hora_fin']) or \
-            //    (materia_actual['hora_fin'] > materia['hora_inicio'] and
-            //     materia_actual['hora_fin'] <= materia['hora_fin']):
-            if ($configs->isNotEmpity()){
+            if ($request->$checkbox == true){
+                
+                $career= Career::find($request->career);//Busca a que carrera va apertenecer la materia.
 
-                //si hay configuraciones en el día $i recorre las existentes
+                $configs=Config::where('day_id', $i)->get();
+                //estado de la coleccion
+                //false: vacia
+                //true: con elementos   
+                $configs_status= $configs->isNotEmpty();
+                
+                if ($configs_status){
+                    // dd('coleccion CON elementos');
 
-                foreach ($configs as $config ){
-                    
-                    // compara los horarios de la configuración a ingresar
-                    if ($config->start <= $start && $config->finish > $start 
-                    || $finish > $config->start && $finish <= $config->finish ){
-                         
-                        // si los horarios de la materia a ingresar no se superpone
-                        // con la configuraciones existentes en el día $i agrega la configuración
-                        if ($request->$checkbox == true){
+                    //si hay configuraciones en la coleccion del día $i recorre las existentes
+
+                    foreach ($configs as $config ){
+                        // dd('entra al foreach');
+                        // compara los horarios de la configuración a ingresar
+                        if ($config->start < $start && $config->finish > $start 
+                        || $finish > $config->start && $finish <= $config->finish ){
+                            
+                            // si los horarios de la materia a ingresar no se superpone
+                            // con la configuraciones existentes en el día $i agrega la configuración
+                            
 
                             // agrega materia a la bdd
                             $subject= Subject::create([
                                 "name"=>$request->name
                             ]);
+
                             $id=$subject->id;
 
                             // agrega configuración a la bdd
@@ -85,22 +91,30 @@ class SubjectController extends Controller
                                 "finish"=>$request->$finish,
                                 "stop"=>$request->$stop
                             ])];
-                        }    
-                    }else{
-                        dd('hay una materia ya existente en este horario');
-                    };
-                }
-                    
-            }else{
-                // agraga materia a la bdd
-                $subject= Subject::create([
-                    "name"=>$request->name
-                ]);
-                $id=$subject->id;
+                            
+                            $subjects= $career->subject()->attach($id);//relaciona una materia con una carrera. 
 
-                // si no hay ninguna configuración en $i (dia) 
-                // agrega las que esten marcadas con el checkbox
-                if ($request->$checkbox == true){
+                            return redirect()->route('subjects.index');
+                            
+                        }else{
+
+                            // si la materia a ingresar se interpone
+                            dd('hay una materia ya existente en este horario');
+                        };
+                    }
+                        
+                }else{
+
+                    // dd('coleccion SIN elementos');
+                    // agraga materia a la bdd
+                    $subject= Subject::create([
+                        "name"=>$request->name
+                    ]);
+                    $id=$subject->id;
+
+                    // si no hay ninguna configuración en $i (dia) 
+                    // agrega las que esten marcadas con el checkbox
+                    
                     $config=[Config::create([
                         "subject_id"=>$id,
                         "day_id"=>$i,
@@ -108,14 +122,13 @@ class SubjectController extends Controller
                         "finish"=>$request->$finish,
                         "stop"=>$request->$stop
                     ])];
+                    
+                    $subjects= $career->subject()->attach($id);//relaciona una materia con una carrera. 
+
+                    return redirect()->route('subjects.index');
                 }
             }
-
-        $career= Career::find($request->career);//Busca a que carrera va apertenecer la materia.
-        
-        $subjects= $career->subject()->attach($id);//relaciona una materia con una carrera. 
- 
-        return redirect()->route('subjects.index');
+        }
     }
 
     /**
