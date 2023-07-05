@@ -73,39 +73,39 @@ class AssistController extends Controller
             $day_id='';
             switch ($day) {
                 case 'Monday':
-                    // Lógica para el día lunes
+                    
                     $day_id= 2;
-                    // dd('Lunes');
+                    
                     break;
                 case 'Tuesday':
-                    // Lógica para el día martes
+                 
                     $day_id= 3;
-                    // dd('Martes');
+                    
                     break;
                 case 'Wednesday':
-                    // Lógica para el día miércoles
+                    
                     $day_id= 4;
-                    // dd('Miercoles');
+                    
                     break;
                 case 'Thursday':
-                    // Lógica para el día jueves
+                    
                     $day_id= 5;
-                    // dd('Jueves');
+                    
                     break;
                 case 'Friday':
-                    // Lógica para el día viernes
+                    
                     $day_id= 6;
-                    // dd('Viernes');
+                   
                     break;
                 case 'Saturday':
-                    // Lógica para el día sábado
+                   
                     $day_id= 7;
-                    // dd('Sábado');
+                   
                     break;
                 case 'Sunday':
-                    // Lógica para el día domingo
+                  
                     $day_id= 1;
-                    // dd('Domingo');
+            
                     break;
             }
 
@@ -117,19 +117,6 @@ class AssistController extends Controller
                 $stop= $config->stop;
                 $finish= $config->finish;
 
-                // dd($start, $stop, $finish);
-                
-                //     if ($finish > $targetTime && $start<= $targetTime) {
-                //         // El horario actual es posterior al horario ingresado
-                //         // Agrega aquí tu lógica
-                //    } elseif ($currentTime == $targetTime) {
-                //        // El horario actual es igual al horario ingresado
-                //        //     // Agrega aquí tu lógica
-    
-                //    } else {
-                //        // El horario actual es anterior al horario ingresado
-                //        // Agrega aquí tu lógica
-                //    }
 
                 
                 if ($finish >= $targetTime && $start<= $targetTime) {
