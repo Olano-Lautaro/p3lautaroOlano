@@ -20,11 +20,11 @@ class Config extends Model
 
     public function subject(): BelongsTo 
     {
-        return $this->belongsTo(Subject::Class);
+        return $this->belongsTo(Subject::class);
     }
 
     public function day(): BelongsTo 
     {
-        return $this->belongsTo(Day::Class);
+        return $this->belongsTo(Day::class);
     }
 }

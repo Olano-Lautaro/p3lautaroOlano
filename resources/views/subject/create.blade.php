@@ -26,37 +26,37 @@
        <b>Configuración</b> <br>
         Días:
         <div name="days" class="days-box">
-            Lunes <input type="checkbox" name="check2">
-            <div class="day-box" name="2" id="2" class="hidden">
+            <div class="day-box" name="2" id="2">
+                Lunes <input type="checkbox" name="check2"><br>
                 Hora de inicio: <input type="time" name="start-2" min="15:55:00"><br>
                 Hora de Fin: <input type="time" name="finish-2" max="22:15:00"><br>
                 Rango: <input type="time" name="stop-2">  
             </div>
             
-            Martes<input type="checkbox" name="check3">
-            <div class="day-box" name="3" id="3" class="hidden">
+            <div class="day-box" name="3" id="3">
+                Martes<input type="checkbox" name="check3"><br>
                 Hora de inicio: <input type="time" name="start-3" min="15:55:00"><br>
                 Hora de Fin: <input type="time" name="finish-3" max="22:15:00"><br>
                 Rango: <input type="time" name="stop-3">
                 
             </div>
             
-            Miercoles<input type="checkbox" id="checkbox" name="check4">
-            <div class="day-box" name="4" id="4" class="hidden">
+            <div class="day-box" name="4" id="4">
+                Miercoles<input type="checkbox" id="checkbox" name="check4"><br>
                 Hora de inicio: <input type="time" name="start-4" min="15:55:00"><br>
                 Hora de Fin: <input type="time" name="finish-4" max="22:15:00"><br>
                 Rango: <input type="time" name="stop-4">                   
             </div>
             
-            Jueves<input type="checkbox" id="checkbox" name="check5">
-            <div class="day-box" name="5" id="5" class="hidden">
+            <div class="day-box" name="5" id="5">
+                Jueves<input type="checkbox" id="checkbox" name="check5"><br>
                 Hora de inicio: <input type="time" name="start-5" min="15:55:00"><br>
                 Hora de Fin: <input type="time" name="finish-5" max="22:15:00"><br>
                 Rango: <input type="time" name="stop-5">               
             </div>
             
-            Viernes<input type="checkbox" id="checkbox" name="check6">
-            <div class="day-box" name="6" id="6" class="hidden">
+            <div class="day-box" name="6" id="6">
+                Viernes<input type="checkbox" id="checkbox" name="check6"><br>
                 Hora de inicio: <input type="time" name="start-6" min="15:55:00"><br>
                 Hora de Fin: <input type="time" name="finish-6" max="22:15:00"><br>
                 Rango: <input type="time" name="stop-6">
@@ -69,9 +69,6 @@
 </body>
 </html>
 <style>
-    .hidden{
-        display: none;
-    }
     .days-box{
         display: flex;
         flex-flow: row wrap;
@@ -84,5 +81,6 @@
         border-style: solid;
         border-color: gray;
         border-width: 1px;
+        padding: 0.5%;
     }
 </style>

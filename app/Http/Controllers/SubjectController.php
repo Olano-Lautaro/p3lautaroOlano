@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\Models\Career;
 use App\Models\Subject;
 use App\Models\Config;
-use App\Models\Day;
 use Illuminate\Http\Request;
 
 
@@ -42,38 +41,75 @@ class SubjectController extends Controller
             'name'=>'required'
         ]);
 
-        $subject= Subject::create([
-            "name"=>$request->name
-        ]);
-
-        $id=$subject->id;
-
-        $configs=[];
-
+        // $subject= Subject::create([
+        //     "name"=>$request->name
+        // ]);
+        
         for ($i=2; $i<7; $i++){
             $checkbox= 'check'.$i;
             $finish= 'finish-'.$i;
             $stop='stop-'.$i;
             $start='start-'.$i;
-        
-            if ($request->$checkbox == true){
-                $config=[Config::create([
-                    "subject_id"=>$id,
-                    "day_id"=>$i,
-                    "start"=>$request->$start,
-                    "finish"=>$request->$finish,
-                    "stop"=>$request->$stop
-                ])];
+
+            $configs=Config::where('day_id', $i)->get();
+            dd($configs);
+            // if (materia_actual['hora_inicio'] >= materia['hora_inicio'] and
+            //     materia_actual['hora_inicio'] < materia['hora_fin']) or \
+            //    (materia_actual['hora_fin'] > materia['hora_inicio'] and
+            //     materia_actual['hora_fin'] <= materia['hora_fin']):
+            if ($configs->isNotEmpity()){
+
+                //si hay configuraciones en el día $i recorre las existentes
+
+                foreach ($configs as $config ){
+                    
+                    // compara los horarios de la configuración a ingresar
+                    if ($config->start <= $start && $config->finish > $start 
+                    || $finish > $config->start && $finish <= $config->finish ){
+                         
+                        // si los horarios de la materia a ingresar no se superpone
+                        // con la configuraciones existentes en el día $i agrega la configuración
+                        if ($request->$checkbox == true){
+
+                            // agrega materia a la bdd
+                            $subject= Subject::create([
+                                "name"=>$request->name
+                            ]);
+                            $id=$subject->id;
+
+                            // agrega configuración a la bdd
+                            $config=[Config::create([
+                                "subject_id"=>$id,
+                                "day_id"=>$i,
+                                "start"=>$request->$start,
+                                "finish"=>$request->$finish,
+                                "stop"=>$request->$stop
+                            ])];
+                        }    
+                    }else{
+                        dd('hay una materia ya existente en este horario');
+                    };
+                }
+                    
+            }else{
+                // agraga materia a la bdd
+                $subject= Subject::create([
+                    "name"=>$request->name
+                ]);
+                $id=$subject->id;
+
+                // si no hay ninguna configuración en $i (dia) 
+                // agrega las que esten marcadas con el checkbox
+                if ($request->$checkbox == true){
+                    $config=[Config::create([
+                        "subject_id"=>$id,
+                        "day_id"=>$i,
+                        "start"=>$request->$start,
+                        "finish"=>$request->$finish,
+                        "stop"=>$request->$stop
+                    ])];
+                }
             }
-        }
-
-
-        // $configs= Config::where('subject_id',$id)->get();
-
-
-        
-
-
 
         $career= Career::find($request->career);//Busca a que carrera va apertenecer la materia.
         
@@ -97,21 +133,6 @@ class SubjectController extends Controller
     {
         $subject= Subject::find( $id);
         $configs= $subject->config;
-       
-        // $days=[];
-        // foreach ($configs as $value) {
-        //     $days[]=$value->day_id;
-        // }
-        
-       // $dias= Day::select("*")->wherein('id', $days)->get();
-
-       
-
-        // for ($i=0; $i <= $count; $i++) { 
-        //     $day= Day::where('id', $configs[$i]->day_id)->get();
-        //     array_push($days, $day);
-        // };
-
         return view('subject.edit', compact('subject', 'configs'));
     }
 
@@ -128,8 +149,9 @@ class SubjectController extends Controller
 
         // Edit Config Materias
         $configs= $subject->config;
-        // dd($configs);
-        
+    
+        // Edita cada configuracion    
+
         foreach ($configs as $key=> $config) {
 
             $finish= 'finish-'.$key;
@@ -144,15 +166,20 @@ class SubjectController extends Controller
 
             $config->save();
         }
+        //agrega una nueva configuración
+        
         if ($request->new_config != false){
+            $finish= 'finish_new';
+            $stop='stop_new';
+            $start='start_new';
+            $day='day_new';
             $newConfig= Config::create([
                 "subject_id"=>$id,
-                "day_id"=>$request->day_new,
-                "start"=>$request->start_new,
-                "finish"=>$request->finish_new,
-                "stop"=>$request->stop_new
+                "day_id"=>$request->$day,
+                "start"=>$request->$start,
+                "finish"=>$request->$finish,
+                "stop"=>$request->$stop
             ]);
-
         };
        
 
@@ -164,20 +191,19 @@ class SubjectController extends Controller
      */
     public function destroy(string $id)
     {
-
-        $config= Config::where('subject_id', $id)->get();
-        // $config->delete();
-
         $subject= Subject::find($id);
+
         $subject->delete();
     
         return redirect()->route('subjects.index');
     }
 
-    public function infoConfig($id)
+    public function destroyConfig(string $id)
     {
-        $config= Config::where($id = 'subject_id');
+        $config= Config::find($id);
+        $config->delete();
 
-        dd($config);
+        return redirect()->route('subjects.edit');
     }
+
 }

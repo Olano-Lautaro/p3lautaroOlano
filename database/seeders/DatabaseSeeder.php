@@ -38,8 +38,8 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::factory(10)->create();
 
-        $this->call([SubjectSeeder::Class]);
+        $this->call([CareerSeeder::class]);
 
-        $this->call([DaySeeder::Class]);
+        $this->call([DaySeeder::class]);
     }
 }

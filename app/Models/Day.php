@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+// use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Day extends Model
 {
@@ -17,12 +17,12 @@ class Day extends Model
  
     public function config(): HasMany 
     {
-        return $this->hasMany(Config::Class);
+        return $this->hasMany(Config::class);
     }
 
     public function assist(): HasMany 
     {
-        return $this->hasMany(Assist::Class);
+        return $this->hasMany(Assist::class);
     }
     
 }

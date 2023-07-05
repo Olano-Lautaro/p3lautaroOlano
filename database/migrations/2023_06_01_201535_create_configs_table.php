@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('configs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('subject_id'); //Id Materia que le pertenece la configuración
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
             $table->unsignedBigInteger('day_id'); // Id dia en que se imparte la materia
             $table->time('start'); // Inicio materia hs.
             $table->time('finish'); // Fin materia hs.

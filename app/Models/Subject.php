@@ -18,21 +18,21 @@ class Subject extends Model
 
     public function student(): BelongsToMany
     {
-        return $this->belongsToMany(Student::Class);
+        return $this->belongsToMany(Student::class);
     }
 
     public function career(): BelongsToMany  
     {
-        return $this->belongsToMany(Career::Class);
+        return $this->belongsToMany(Career::class);
     }
 
     public function config(): HasMany 
     {
-        return $this->hasMany(Config::Class);
+        return $this->hasMany(Config::class);
     }
 
     public function assist(): HasMany 
     {
-        return $this->hasMany(Assist::Class);
+        return $this->hasMany(Assist::class);
     }
 }
