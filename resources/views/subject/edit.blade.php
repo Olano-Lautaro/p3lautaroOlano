@@ -44,17 +44,6 @@
                     <input type="time" name="stop-{{ $key }}" value={{ $config->stop }} min="15:55:00"
                         max="22:25:00">
                     <br>
-                    {{-- <div class="btn-delete">
-
-                        <form action={{ route('subjects.destroyConfig', $config->id) }} method="post">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" style="border: none; background: none; padding: 0; margin: 0.5mm;">
-                                🗑️
-                            </button>
-                        </form>
-                        
-                    </div> --}}
                 </div>
             @endforeach
 

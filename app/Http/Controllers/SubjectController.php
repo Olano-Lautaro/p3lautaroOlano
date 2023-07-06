@@ -5,6 +5,7 @@ use App\Models\Career;
 use App\Models\Subject;
 use App\Models\Config;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 
 class SubjectController extends Controller
@@ -27,8 +28,11 @@ class SubjectController extends Controller
     public function create()
     {
         $careers= Career::all();
+
         
-        return view('subject.create', compact('careers'));
+        $error='';
+        
+        return view('subject.create', compact('careers','error'));
     }
 
     /**
@@ -47,7 +51,7 @@ class SubjectController extends Controller
         
         for ($i=2; $i<7; $i++){
             $checkbox= 'check'.$i;
-            $finish= 'finish-'.$i;
+            $finish='finish-'.$i;
             $stop='stop-'.$i;
             $start='start-'.$i;
 
@@ -62,15 +66,29 @@ class SubjectController extends Controller
                 $configs_status= $configs->isNotEmpty();
                 
                 if ($configs_status){
-                    // dd('coleccion CON elementos');
 
                     //si hay configuraciones en la coleccion del día $i recorre las existentes
 
                     foreach ($configs as $config ){
-                        // dd('entra al foreach');
+                     
                         // compara los horarios de la configuración a ingresar
-                        if ($config->start < $start && $config->finish > $start 
-                        || $finish > $config->start && $finish <= $config->finish ){
+
+                        $horaInicio_I= Carbon::parse($request->$start);
+                        $horaFin_I = Carbon::parse($request->$finish);
+                        $horaInicio_E = Carbon::parse($config->start);
+                        $horaFin_E = Carbon::parse($config->finish);
+
+
+
+                        $horaInicioIngresante= $horaInicio_I->between($horaInicio_E, $horaFin_E);
+                        $horaFinIngresante= $horaFin_I->between($horaInicio_E, $horaFin_E);
+                        
+
+                        $horaInicioExistente = $horaInicio_E->between($horaInicio_I, $horaFin_I);
+                        $horaFinExistente = $horaFin_E->between($horaInicio_I, $horaFin_I);
+
+
+                        if (!($horaInicioIngresante && $horaFinIngresante) && !($horaInicioExistente && $horaFinExistente) ){
                             
                             // si los horarios de la materia a ingresar no se superpone
                             // con la configuraciones existentes en el día $i agrega la configuración
@@ -97,9 +115,10 @@ class SubjectController extends Controller
                             return redirect()->route('subjects.index');
                             
                         }else{
-
-                            // si la materia a ingresar se interpone
-                            dd('hay una materia ya existente en este horario');
+                            $error='El horaio ingresado no es valido, hay una materia que se encuentra registrada dentro de ese horario';
+                            $careers= Career::all();                   
+                            return view('subject.create', compact('error','careers'));
+                            $error='';
                         };
                     }
                         

@@ -19,11 +19,13 @@
         <br>
         <br>
         <b>Datos de Materia</b> <br>
-
         Nombre: <input type="text" name='name' placeholder="Nombre de Materia" required><br>
 
         <hr>
        <b>Configuración</b> <br>
+       @if ($error)
+            <div class="error">{{ $error }}</div> 
+        @endif
         Días:
         <div name="days" class="days-box">
             <div class="day-box" name="2" id="2">
@@ -66,6 +68,8 @@
         <br>
         <input type="submit" value="Guardar">
     </form>
+    <br>
+    <a href="/subjects"><button style="margin: 2">Cancelar</button></a>
 </body>
 </html>
 <style>
@@ -82,5 +86,12 @@
         border-color: gray;
         border-width: 1px;
         padding: 0.5%;
+    }
+    .error{
+        height: 50px;
+        width: 600px;
+        background-color: red;
+        color: #4e0b0b;
+        font-size: 6mm;
     }
 </style>

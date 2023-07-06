@@ -6,10 +6,8 @@ use Illuminate\Support\Carbon;
 use App\Models\Assist;
 use App\Models\Day;
 use App\Models\Student;
-use App\Models\Subject;
-use DateTime;
 use Illuminate\Http\Request;
-use Pest\Arch\ValueObjects\Targets;
+
 
 class AssistController extends Controller
 {
@@ -35,22 +33,8 @@ class AssistController extends Controller
 
         $currentDate= Carbon::now(); //Fecha de hoy
         $carbonCD= Carbon::parse($currentDate);
-
-        // if ($currentDate->greaterThan($carbonCD)) {
-        //     // La fecha actual es posterior a la fecha B
-        //     // Agrega aquí tu lógica
-        // } elseif ($currentDate->equalTo($carbonCD)) {
-        //     // La fecha actual es igual a la fecha B
-        //     // Agrega aquí tu lógica
-        // } else {
-        //     // La fecha actual es anterior a la fecha B
-        //     // Agrega aquí tu lógica
-        // }
-
+     
         $error='';
-
-
-
         return view('assist.create', compact('error'));
     }
 
