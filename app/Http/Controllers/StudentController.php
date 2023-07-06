@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Student;
-
+use App\Models\Career;
+use App\Models\Subject;
 use App\Traits\Auditable;
 
 class StudentController extends Controller
@@ -17,6 +18,7 @@ class StudentController extends Controller
      */
     public function index()
     {
+        
         $students= Student::all();
 
         // Relaciona que materias realiza un estudiante
@@ -33,7 +35,9 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('student.create');
+        $careers = Career::all();
+        $subjects = Subject::all();
+        return view('student.create', compact('careers','subjects'));
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Carbon;
 
 use App\Models\Assist;
@@ -16,8 +17,8 @@ class AssistController extends Controller
      */
     public function index()
     {
-     
-        $assists= Assist::all();
+
+        $assists = Assist::all();
 
         return view('assist.index', compact('assists'));
     }
@@ -26,15 +27,15 @@ class AssistController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {   
-        
+    {
+
         // pasar el día
         //materia dependiendo del día y horario 
 
-        $currentDate= Carbon::now(); //Fecha de hoy
-        $carbonCD= Carbon::parse($currentDate);
-     
-        $error='';
+        // $currentDate= Carbon::now(); //Fecha de hoy
+        // $carbonCD= Carbon::parse($currentDate);
+
+        $error = '';
         return view('assist.create', compact('error'));
     }
 
@@ -44,96 +45,90 @@ class AssistController extends Controller
     public function store(Request $request)
     {
         // Registrar asistencia solo si existe dni del Student
-        
-        $student= Student::where('dni', $request->dni)->first();
-        if ($student) {
-            $targetTime='16:20:00'; 
-            //Carbon::now()->format('H:i'); //Hora actual para la asistencia
-            
-            $currentDate= Carbon::now();
 
-            
-            $day= Carbon::now()->format('l');
-            $day_id='';
+        $student = Student::where('dni', $request->dni)->first();
+        if ($student) {
+            $targetTime = Carbon::now()->format('H:i'); //Hora actual para la asistencia
+
+            $currentDate = Carbon::now();
+
+
+            $day = Carbon::now()->format('l');
+            $day_id = '';
             switch ($day) {
                 case 'Monday':
-                    
-                    $day_id= 2;
-                    
+
+                    $day_id = 2;
+
                     break;
                 case 'Tuesday':
-                 
-                    $day_id= 3;
-                    
+
+                    $day_id = 3;
+
                     break;
                 case 'Wednesday':
-                    
-                    $day_id= 4;
-                    
+
+                    $day_id = 4;
+
                     break;
                 case 'Thursday':
-                    
-                    $day_id= 5;
-                    
+
+                    $day_id = 5;
+
                     break;
                 case 'Friday':
-                    
-                    $day_id= 6;
-                   
+
+                    $day_id = 6;
+
                     break;
                 case 'Saturday':
-                   
-                    $day_id= 7;
-                   
+
+                    $day_id = 7;
+
                     break;
                 case 'Sunday':
-                  
-                    $day_id= 1;
-            
+
+                    $day_id = 1;
+
                     break;
             }
 
-            $day= Day::where('id', $day_id)->first();
-            $configs= $day->config;
-             
+            $day = Day::where('id', $day_id)->first();
+            $configs = $day->config;
+
             foreach ($configs as $config) {
-                $start= $config->start;
-                $stop= $config->stop;
-                $finish= $config->finish;
+                $start = $config->start;
+                $stop = $config->stop;
+                $finish = $config->finish;
 
 
-                
-                if ($finish >= $targetTime && $start<= $targetTime) {
+
+                if ($finish >= $targetTime && $start <= $targetTime) {
                     // El horario actual es posterior al horario ingresado
                     // Agrega aquí tu lógica
-                    
-                    $assist= Assist::create([
-                        'student_id'=>$student->id,
-                        'subject_id'=>$config->subject_id,
-                        'day_id'=>$config->day_id,
-                        'date'=>$currentDate,
-                        'hour'=>$targetTime
+
+                    $assist = Assist::create([
+                        'student_id' => $student->id,
+                        'subject_id' => $config->subject_id,
+                        'day_id' => $config->day_id,
+                        'date' => $currentDate,
+                        'hour' => $targetTime
                     ]);
 
                     return redirect()->route('assists.index');
-
                 } else {
 
-                    // El horario actual es igual al horario ingresado
-                    //     // Agrega aquí tu lógica
-                    
-                    dd('fuera de horario');
-    
+                    $error = 'Error al ingrersar la asistencia, se encuentra fuera de horario';
+
+                    return view('assist.create', compact('error'));
                 }
             }
-            
         } else {
-            $error= 'El dni ingresado no está registrado en la base de datos, por favor ingresar un dni registrado';
-                                                
-            return view('assist.create', compact('error'));
-            $error='';
-        }
+            $error = 'El dni ingresado no está registrado en la base de datos, por favor ingresar un dni registrado';
 
+            return view('assist.create', compact('error'));
+            $error = '';
+        }
     }
 
     /**

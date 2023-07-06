@@ -18,6 +18,7 @@
 
         <input type="submit" value="Guardar">
     </form>
+    <a href="/assists"><button>Cancelar</button></a>
 </body>
 </html>
 <style>
@@ -26,5 +27,6 @@
         width: 300px;
         background-color: red;
         color: #4e0b0b;
+        margin: 0.5%;
     }
 </style>
